@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as everyActions from '../redux/actions'
+import * as everyActions from '../../redux/actions'
+
+// import styles from './styles.module.css'
 
 class WalletForm extends Component {
   state = {

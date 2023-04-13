@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
+// import styles from './styles.module.css'
+
 class Header extends Component {
   render() {
     const { email, sum } = this.props

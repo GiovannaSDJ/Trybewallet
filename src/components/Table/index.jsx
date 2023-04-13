@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import * as everyAction from '../redux/actions'
+import * as everyAction from '../../redux/actions'
+
+// import styles from './styles.module.css'
 
 class Table extends Component {
   sumExpense = async () => {
