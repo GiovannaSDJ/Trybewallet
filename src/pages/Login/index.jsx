@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { userEmail } from '../../redux/actions'
 
-// import styles from './styles.module.css'
+import logoImg from '../../assets/logo_img.svg'
+import logoText from '../../assets/logo_text.svg'
+
+import styles from './styles.module.css'
 
 class Login extends React.Component {
   state = {
@@ -41,37 +44,44 @@ class Login extends React.Component {
   render() {
     const { disabled } = this.state
     return (
-      <form>
-        <label htmlFor="email">
-          Email
-          <input
-            data-testid="email-input"
-            type="email"
-            onChange={({ target: { value } }) => {
-              this.setState({ email: value })
-              this.validateForm()
-            }}
-          />
-        </label>
-        Password
-        <label htmlFor="password">
-          <input
-            data-testid="password-input"
-            type="password"
-            onChange={({ target: { value } }) => {
-              this.setState({ password: value })
-              this.validateForm()
-            }}
-          />
-        </label>
-        <button
-          type="submit"
-          disabled={disabled}
-          onClick={(event) => this.handleButtonSubmit(event)}
-        >
-          Entrar
-        </button>
-      </form>
+      <div className={styles.loginPage}>
+        <form className={styles.form}>
+          <div className={styles.logo}>
+            <img src={logoImg} alt="" className={styles.logoImg} />
+            <img src={logoText} alt="" className={styles.logoText} />
+          </div>
+          <label htmlFor="email">
+            <input
+              className={styles.input}
+              type="email"
+              placeholder="Email"
+              onChange={({ target: { value } }) => {
+                this.setState({ email: value })
+                this.validateForm()
+              }}
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              className={styles.input}
+              type="password"
+              placeholder="Senha"
+              onChange={({ target: { value } }) => {
+                this.setState({ password: value })
+                this.validateForm()
+              }}
+            />
+          </label>
+          <button
+            className={styles.button}
+            type="submit"
+            disabled={disabled}
+            onClick={(event) => this.handleButtonSubmit(event)}
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
     )
   }
 }
