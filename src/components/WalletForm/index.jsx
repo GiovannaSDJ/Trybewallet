@@ -4,16 +4,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as everyActions from '../../redux/actions'
 
-// import styles from './styles.module.css'
+import styles from './styles.module.css'
 
 class WalletForm extends Component {
   state = {
     id: 0,
     value: '',
     description: '',
-    currency: 'USD',
-    method: 'Dinheiro',
-    tag: 'Alimentação',
+    currency: '',
+    method: '',
+    tag: '',
   }
 
   componentDidMount() {
@@ -84,85 +84,108 @@ class WalletForm extends Component {
     const { currencies, editor } = this.props
     const { value: inputValue, description, currency, method, tag } = this.state
     return (
-      <div>
-        <form>
-          <label htmlFor="value">
-            Value
-            <input
-              data-testid="value-input"
-              type="number"
-              value={inputValue}
-              onChange={({ target: { value } }) => {
-                this.setState({ value })
-              }}
-            />
-          </label>
-          <label htmlFor="description">
-            Expense
-            <input
-              data-testid="description-input"
-              type="text"
-              value={description}
-              onChange={({ target: { value } }) => {
-                this.setState({ description: value })
-              }}
-            />
-          </label>
-          <label htmlFor="currency">
-            Currency
-            <select
-              data-testid="currency-input"
-              value={currency}
-              onChange={({ target: { value } }) => {
-                this.setState({ currency: value })
-              }}
-            >
-              {currencies.map((currenc, index) => (
-                <option key={index} value={currenc}>
-                  {currenc}
+      <div className={styles.walletForm}>
+        <form className={styles.form}>
+          <div className={styles.left}>
+            <label htmlFor="description">
+              Descrição da despesa
+              <input
+                className={`${styles.input} ${styles.text}`}
+                placeholder="Ex.: Ração dos gatos"
+                type="text"
+                value={description}
+                onChange={({ target: { value } }) => {
+                  this.setState({ description: value })
+                }}
+              />
+            </label>
+            <label htmlFor="method">
+              Método de pagamento
+              <select
+                className={styles.input}
+                value={method}
+                onChange={({ target: { value } }) => {
+                  this.setState({ method: value })
+                }}
+              >
+                <option value="" disabled>
+                  Selecione
                 </option>
-              ))}
-            </select>
-          </label>
-          <label htmlFor="method">
-            Payment Method
-            <select
-              data-testid="method-input"
-              value={method}
-              onChange={({ target: { value } }) => {
-                this.setState({ method: value })
-              }}
-            >
-              <option value="Dinheiro">Dinheiro</option>
-              <option value="Cartão de crédito">Cartão de crédito</option>
-              <option value="Cartão de débito">Cartão de débito</option>
-            </select>
-          </label>
-          <label htmlFor="type-tag">
-            Type
-            <select
-              data-testid="tag-input"
-              value={tag}
-              onChange={({ target: { value } }) => {
-                this.setState({ tag: value })
-              }}
-            >
-              <option value="Alimentação">Alimentação</option>
-              <option value="Lazer">Lazer</option>
-              <option value="Trabalho">Trabalho</option>
-              <option value="Transporte">Transporte</option>
-              <option value="Saúde">Saúde</option>
-            </select>
-          </label>
-          {editor ? (
-            <button type="button" onClick={this.editingExpense}>
-              Editar Despesa
-            </button>
-          ) : (
-            <button type="button" onClick={this.handleClick}>
-              Adicionar despesa
-            </button>
-          )}
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Crédito">Cartão de crédito</option>
+                <option value="Débito">Cartão de débito</option>
+              </select>
+            </label>
+            <label htmlFor="currency">
+              Moeda
+              <select
+                className={styles.input}
+                value={currency}
+                onChange={({ target: { value } }) => {
+                  this.setState({ currency: value })
+                }}
+              >
+                <option value="" disabled>
+                  Selecione
+                </option>
+                {currencies.map((currenc, index) => (
+                  <option key={index} value={currenc}>
+                    {currenc}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className={styles.right}>
+            <label htmlFor="type-tag">
+              Categoria
+              <select
+                className={styles.input}
+                value={tag}
+                onChange={({ target: { value } }) => {
+                  this.setState({ tag: value })
+                }}
+              >
+                <option value="" disabled>
+                  Selecione
+                </option>
+                <option value="Alimentação">Alimentação</option>
+                <option value="Lazer">Lazer</option>
+                <option value="Trabalho">Trabalho</option>
+                <option value="Transporte">Transporte</option>
+                <option value="Saúde">Saúde</option>
+              </select>
+            </label>
+            <label htmlFor="value">
+              Valor
+              <input
+                placeholder="Ex.: 140"
+                className={styles.input}
+                type="number"
+                value={inputValue}
+                onChange={({ target: { value } }) => {
+                  this.setState({ value })
+                }}
+              />
+            </label>
+            {editor ? (
+              <button
+                className={styles.button}
+                type="button"
+                onClick={this.editingExpense}
+              >
+                Editar Despesa
+              </button>
+            ) : (
+              <button
+                className={styles.button}
+                type="button"
+                onClick={this.handleClick}
+              >
+                Adicionar despesa
+              </button>
+            )}
+          </div>
         </form>
       </div>
     )

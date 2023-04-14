@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Karla:200,300,regular,500,600,700,800,200italic,300italic,italic,500italic,600italic,700italic,800italic);
+
 * {
   margin: 0;
   padding: 0;
@@ -12,13 +14,20 @@
   --main-pink: #FAB4EB;
   --pink-bg: #F4E1F0;
   --paler-pink: #FEF4FC;
+  --darker-bg: #6E4E6B;
+  --lighter-bg: #846280;
   --white: #FFF
 }
 
 body {
   font-size: 1.6rem;
+  font-family: 'Karla';
 }
 
 button {
   cursor: pointer;
+}
+
+input:focus {
+  outline: none;
 }

@@ -1,0 +1,31 @@
+.walletPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--pink-bg);
+  min-height: 100vh;
+}
+
+.upper {
+  width: 103rem;
+  padding-bottom: 3rem;
+  background: var(--white);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 0px 15px #34343480;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+.lower {
+  width: 115rem;
+  min-height: 41.4rem;
+  background: var(--main-purple);
+  color: var(--white);
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #34343480;
+  margin: 22.6rem 0 2rem;
+  padding: 19.2rem 0 3rem;
+  display: flex;
+  justify-content: center;
+}

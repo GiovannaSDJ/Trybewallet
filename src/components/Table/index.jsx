@@ -4,7 +4,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as everyAction from '../../redux/actions'
 
-// import styles from './styles.module.css'
+import bin from '../../assets/bin.svg'
+import edit from '../../assets/edit.svg'
+
+import styles from './styles.module.css'
 
 class Table extends Component {
   sumExpense = async () => {
@@ -31,62 +34,58 @@ class Table extends Component {
   render() {
     const { expenses } = this.props
     return (
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Descrição</th>
-              <th>Tag</th>
-              <th>Método de pagamento</th>
-              <th>Valor</th>
-              <th>Moeda</th>
-              <th>Câmbio utilizado</th>
-              <th>Valor convertido</th>
-              <th>Moeda de conversão</th>
-              <th>Editar/Excluir</th>
+      <table className={styles.table}>
+        <thead>
+          <tr className={styles.head}>
+            <th>Descrição</th>
+            <th>Categoria</th>
+            <th>Método de pagamento</th>
+            <th>Valor</th>
+            <th>Moeda</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody className={styles.tbody}>
+          {expenses.map((expense) => (
+            <tr key={expense.id} className={styles.tr}>
+              <td>{expense.description}</td>
+              <td>{expense.tag}</td>
+              <td>{expense.method}</td>
+              <td>{Number(expense.value).toFixed(2)}</td>
+              <td>{expense.exchangeRates[expense.currency].name}</td>
+              <td>
+                {Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}
+              </td>
+              <td>
+                {Number(
+                  expense.value * expense.exchangeRates[expense.currency].ask,
+                ).toFixed(2)}
+              </td>
+              <td>Real</td>
+              <td className={styles.icons}>
+                <button
+                  className={styles.button}
+                  onClick={() => this.editButton(expense.id)}
+                >
+                  <img className={styles.img} src={edit} alt="" />
+                </button>
+                <button
+                  className={styles.button}
+                  onClick={async () => {
+                    await this.deleteButton(expense.id)
+                    await this.sumExpense()
+                  }}
+                >
+                  <img className={styles.img} src={bin} alt="" />
+                </button>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {expenses.map((expense) => (
-              <tr key={expense.id}>
-                <td>{expense.description}</td>
-                <td>{expense.tag}</td>
-                <td>{expense.method}</td>
-                <td>{Number(expense.value).toFixed(2)}</td>
-                <td>{expense.exchangeRates[expense.currency].name}</td>
-                <td>
-                  {Number(expense.exchangeRates[expense.currency].ask).toFixed(
-                    2,
-                  )}
-                </td>
-                <td>
-                  {Number(
-                    expense.value * expense.exchangeRates[expense.currency].ask,
-                  ).toFixed(2)}
-                </td>
-                <td>Real</td>
-                <td>
-                  <button
-                    data-testid="edit-btn"
-                    onClick={() => this.editButton(expense.id)}
-                  >
-                    Editar despesa
-                  </button>
-                  <button
-                    data-testid="delete-btn"
-                    onClick={async () => {
-                      await this.deleteButton(expense.id)
-                      await this.sumExpense()
-                    }}
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
     )
   }
 }
